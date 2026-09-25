@@ -56,13 +56,11 @@ const btnCheck = document.getElementById('btnCheck');
 const btnRestartQuiz = document.getElementById('btnRestartQuiz');
 const btnRestart = document.getElementById('btnRestart');
 
-// Аудио элементы (только SFX, без озвучки слов)
 const audioKassa = document.getElementById('audioKassa');
 const audioShurshanie = document.getElementById('audioShurshanie');
 const audioCorrect = document.getElementById('audioCorrect');
 const audioWrong = document.getElementById('audioWrong');
 
-// Функция воспроизведения аудио с обработкой ошибок
 function playAudio(audioElement) {
   if (audioElement) {
     audioElement.currentTime = 0;
@@ -92,9 +90,11 @@ function startNewRound() {
   screen1.classList.add('active');
 }
 
+// Список отображается в СЛУЧАЙНОМ порядке
 function createShoppingList() {
   shoppingList.innerHTML = '';
-  roundItems.forEach((item) => {
+  const shuffledForList = shuffle(roundItems);
+  shuffledForList.forEach((item) => {
     const listItem = document.createElement('div');
     listItem.className = 'list-item';
     listItem.dataset.id = item.id;
@@ -119,6 +119,7 @@ function updateShoppingList() {
   });
 }
 
+// ИСПРАВЛЕНИЕ БАГА: сначала скрываем старое слово, потом показываем новое
 function loadRoundItem() {
   isRevealed = false;
   const currentItem = roundItems[roundIndex];
@@ -126,7 +127,6 @@ function loadRoundItem() {
   manul1.innerHTML = '<img src="assets/images/manul_dumaet.png" alt="Манул задумчивый">';
   manul1.className = 'manul thinking';
   bagContainer.classList.remove('revealed');
-  wordDisplay.classList.remove('show');
   btnNext.classList.remove('show');
   hintArrow.classList.add('show');
   itemSilhouette.innerHTML = `<img src="assets/images/ten_${currentItem.emoji}" alt="Силуэт ${currentItem.word}">`;
@@ -141,6 +141,9 @@ function loadRoundItem() {
   }
   wordDisplay.innerHTML = highlightedWord;
   updateShoppingList();
+  
+  // Сначала убираем класс show (скрываем старое слово)
+  wordDisplay.classList.remove('show');
 }
 
 cashRegister.addEventListener('click', () => {
@@ -152,12 +155,11 @@ cashRegister.addEventListener('click', () => {
   manul1.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
   manul1.className = 'manul happy';
   
-  // Звук кассы
   playAudio(audioKassa);
 
   setTimeout(() => {
+    // Показываем новое слово с задержкой
     wordDisplay.classList.add('show');
-    // Озвучка продукта УБРАНА
     launchConfetti();
     updateShoppingList();
     setTimeout(() => { btnNext.classList.add('show'); }, 1000);
@@ -165,7 +167,6 @@ cashRegister.addEventListener('click', () => {
 });
 
 btnNext.addEventListener('click', () => {
-  // Шуршание пакета
   playAudio(audioShurshanie);
   
   roundIndex++;

@@ -1,7 +1,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
 
 body {
-  font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   background: #f0f8ff;
   overflow: hidden;
   height: 100dvh;
@@ -113,7 +113,7 @@ body {
 
 .popup-title {
   font-size: 7vmin;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   margin-bottom: 2vmin;
 }
@@ -126,7 +126,9 @@ body {
 }
 
 .btn-start {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 5vmin;
+  font-weight: 700;
   padding: 3vmin 8vmin;
   background: #4CAF50;
   color: white;
@@ -135,7 +137,6 @@ body {
   cursor: pointer;
   box-shadow: 0 8px 0 #388E3C;
   transition: all 0.1s;
-  font-weight: bold;
 }
 
 .btn-start:active {
@@ -143,7 +144,6 @@ body {
   box-shadow: 0 0 0 #388E3C;
 }
 
-/* ===== ЭКРАН 1: МАГАЗИН ===== */
 .scene {
   flex: 1;
   display: flex;
@@ -164,7 +164,6 @@ body {
   gap: 2vmin;
 }
 
-/* 🔥 МАНУЛ УВЕЛИЧЕН НА 200% (было 28vmin → 56vmin, но ограничим высотой экрана) */
 .manul {
   width: 35vmin;
   height: 35vmin;
@@ -197,7 +196,6 @@ body {
   100% { transform: scale(1) rotate(0deg); }
 }
 
-/*  ПАКЕТ УВЕЛИЧЕН НА 170% (было 32x38 → 54x65, ограничим) */
 .bag-container {
   position: relative;
   width: 38vmin;
@@ -225,7 +223,6 @@ body {
   object-fit: contain;
 }
 
-/* 🔥 СИЛУЭТ УВЕЛИЧЕН НА 170% */
 .item-silhouette {
   position: absolute;
   width: 24vmin;
@@ -243,7 +240,6 @@ body {
   object-fit: contain;
 }
 
-/* 🔥 ЦВЕТНОЕ ИЗОБРАЖЕНИЕ УВЕЛИЧЕНО НА 170% */
 .item-color {
   position: absolute;
   width: 28vmin;
@@ -272,7 +268,6 @@ body {
   100% { transform: scale(1); }
 }
 
-/* 🔥 КАССА УВЕЛИЧЕНА НА 170% (было 20 → 34vmin) */
 .cash-register {
   width: 28vmin;
   height: 28vmin;
@@ -328,8 +323,9 @@ body {
 }
 
 .shopping-list-title {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 3.8vmin;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   text-align: center;
   padding-bottom: 1vmin;
@@ -348,8 +344,9 @@ body {
 }
 
 .word-display {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 5.5vmin;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   background: white;
   padding: 0.8vmin 3vmin;
@@ -370,7 +367,9 @@ body {
 .letter-l { color: #ff4500; text-transform: uppercase; }
 
 .btn-next {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 3.8vmin;
+  font-weight: 700;
   padding: 1.5vmin 4vmin;
   background: #4CAF50;
   color: white;
@@ -402,6 +401,7 @@ body {
   background: #f9f9f9;
   border-radius: 1.5vmin;
   transition: all 0.4s ease;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 3.2vmin;
   border: 2px solid #e0e0e0;
 }
@@ -429,9 +429,8 @@ body {
   object-fit: contain;
 }
 
-.item-text { flex: 1; font-weight: 600; }
+.item-text { flex: 1; font-weight: 500; }
 
-/* ===== ЭКРАН 2: ВИКТОРИНА — ИСПРАВЛЕНО ===== */
 .quiz-screen {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -451,8 +450,9 @@ body {
 }
 
 .quiz-title {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 4vmin;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   text-align: center;
   background: white;
@@ -510,20 +510,33 @@ body {
 .quiz-manul.thinking { animation: think 2s infinite; }
 .quiz-manul.happy { animation: happy 0.8s ease; }
 
-.btn-check {
+/* Контейнер для кнопок в викторине */
+.quiz-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: 12vmin;
+}
+
+.btn-check, .btn-restart-quiz {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 4vmin;
+  font-weight: 700;
   padding: 2vmin 4vmin;
   color: white;
   border: none;
   border-radius: 4vmin;
   cursor: pointer;
-  box-shadow: 0 6px 0 #1565C0;
-  transition: all 0.1s;
-  font-weight: bold;
-  background: #2196F3;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
   width: 90%;
   max-width: 350px;
-  flex-shrink: 0;
+}
+
+.btn-check {
+  background: #2196F3;
+  box-shadow: 0 6px 0 #1565C0;
 }
 
 .btn-check:active {
@@ -538,7 +551,28 @@ body {
   opacity: 0.5;
 }
 
-/* 🔥 ПРАВАЯ ЧАСТЬ: 6 карточек помещаются */
+/* Кнопка "Играть заново" появляется на месте "Проверить" */
+.btn-restart-quiz {
+  background: #9C27B0;
+  box-shadow: 0 6px 0 #6A1B9A;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0);
+  position: absolute;
+}
+
+.btn-restart-quiz.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-restart-quiz:active {
+  transform: translateY(6px) scale(1);
+  box-shadow: 0 0 0 #6A1B9A;
+}
+
 .quiz-right {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -588,8 +622,9 @@ body {
 }
 
 .quiz-card .card-name {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 3.2vmin;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   text-align: center;
   flex-shrink: 0;
@@ -628,45 +663,6 @@ body {
   75% { transform: translateX(8px); }
 }
 
-.quiz-actions {
-  display: flex;
-  justify-content: center;
-  padding: 1vmin;
-}
-
-.btn-next-round {
-  background: #4CAF50;
-  box-shadow: 0 6px 0 #388E3C;
-  visibility: hidden;
-  opacity: 0;
-  transform: scale(0);
-  font-size: 4vmin;
-  padding: 2vmin 4vmin;
-  color: white;
-  border: none;
-  border-radius: 5vmin;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn-next-round.visible {
-  visibility: visible;
-  opacity: 1;
-  transform: scale(1);
-  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.btn-next-round:active {
-  transform: translateY(6px) scale(1);
-  box-shadow: 0 0 0 #388E3C;
-}
-
-@keyframes popIn {
-  0% { transform: scale(0); }
-  100% { transform: scale(1); }
-}
-
-/* ===== ЭКРАН 3: ФИНАЛ ===== */
 .final-screen {
   justify-content: center;
   align-items: center;
@@ -697,21 +693,25 @@ body {
 }
 
 .final-title {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 8vmin;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   margin-bottom: 2vmin;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
 .final-text {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 5vmin;
   color: #666;
   margin-bottom: 5vmin;
 }
 
 .btn-restart {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 6vmin;
+  font-weight: 700;
   padding: 3vmin 8vmin;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -720,7 +720,6 @@ body {
   cursor: pointer;
   box-shadow: 0 8px 0 rgba(0,0,0,0.2);
   transition: all 0.1s;
-  font-weight: bold;
 }
 
 .btn-restart:active {
@@ -736,7 +735,11 @@ body {
   z-index: 50;
 }
 
-/* ===== АДАПТИВ: ПЛАНШЕТЫ ===== */
+@keyframes popIn {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
 @media (max-width: 1024px) {
   .manul { width: 30vmin; height: 30vmin; }
   .bag-container { width: 34vmin; height: 40vmin; }
@@ -747,7 +750,6 @@ body {
   .item-emoji { width: 4.5vmin; height: 4.5vmin; }
 }
 
-/* ===== АДАПТИВ: МОБИЛЬНЫЕ ===== */
 @media (max-width: 768px) {
   .scene { 
     flex-direction: column; 
@@ -789,7 +791,6 @@ body {
   .word-display { font-size: 5vmin; padding: 0.6vmin 2vmin; }
   .btn-next { font-size: 3.5vmin; padding: 1.2vmin 3vmin; }
 
-  /* Викторина на мобильных */
   .quiz-screen { 
     grid-template-columns: 1fr; 
     grid-template-rows: auto 1fr;
@@ -824,11 +825,13 @@ body {
     max-height: 20vmin;
   }
 
-  .btn-check {
+  .quiz-buttons {
+    width: 100%;
+  }
+
+  .btn-check, .btn-restart-quiz {
     font-size: 3.5vmin;
     padding: 1.5vmin 3vmin;
-    width: auto;
-    flex: 0 0 auto;
   }
 
   .quiz-right {
@@ -873,7 +876,7 @@ body {
   .quiz-card .card-name { font-size: 2.8vmin; }
   
   .quiz-manul { max-width: 18vmin; max-height: 18vmin; }
-  .btn-check { font-size: 3vmin; padding: 1.2vmin 2vmin; }
+  .btn-check, .btn-restart-quiz { font-size: 3vmin; padding: 1.2vmin 2vmin; }
   
   .item-emoji { width: 4vmin; height: 4vmin; }
   .list-item { font-size: 2.8vmin; }

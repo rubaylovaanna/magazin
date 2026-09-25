@@ -36,15 +36,12 @@ let quizChecked = false;
 
 const startPopup = document.getElementById('startPopup');
 const btnStart = document.getElementById('btnStart');
-
 const screen1 = document.getElementById('screen1');
 const screen2 = document.getElementById('screen2');
 const screen3 = document.getElementById('screen3');
-
 const manul1 = document.getElementById('manul1');
 const manul2 = document.getElementById('manul2');
 const manul3 = document.getElementById('manul3');
-
 const bagContainer = document.getElementById('bagContainer');
 const itemSilhouette = document.getElementById('itemSilhouette');
 const itemColor = document.getElementById('itemColor');
@@ -54,7 +51,6 @@ const wordDisplay = document.getElementById('wordDisplay');
 const btnNext = document.getElementById('btnNext');
 const shoppingList = document.getElementById('shoppingList');
 const confettiCanvas = document.getElementById('confettiCanvas');
-
 const quizGrid = document.getElementById('quizGrid');
 const btnCheck = document.getElementById('btnCheck');
 const btnNextRound = document.getElementById('btnNextRound');
@@ -72,10 +68,8 @@ function startNewRound() {
   roundIndex = 0;
   revealedIds.clear();
   isRevealed = false;
-
   createShoppingList();
   loadRoundItem();
-
   screen2.classList.remove('active');
   screen2.classList.add('hidden');
   screen3.classList.remove('active');
@@ -115,18 +109,14 @@ function loadRoundItem() {
   isRevealed = false;
   const currentItem = roundItems[roundIndex];
   currentItemId = currentItem.id;
-
   manul1.innerHTML = '<img src="assets/images/manul_dumaet.png" alt="Манул задумчивый">';
   manul1.className = 'manul thinking';
-
   bagContainer.classList.remove('revealed');
   wordDisplay.classList.remove('show');
   btnNext.classList.remove('show');
   hintArrow.classList.add('show');
-
   itemSilhouette.innerHTML = `<img src="assets/images/ten_${currentItem.emoji}" alt="Силуэт ${currentItem.word}">`;
   itemColor.innerHTML = `<img src="assets/images/${currentItem.emoji}" alt="${currentItem.word}">`;
-
   let highlightedWord = '';
   for (let i = 0; i < currentItem.word.length; i++) {
     if (i === currentItem.lPos) {
@@ -136,32 +126,24 @@ function loadRoundItem() {
     }
   }
   wordDisplay.innerHTML = highlightedWord;
-
   updateShoppingList();
 }
 
 cashRegister.addEventListener('click', () => {
   if (isRevealed) return;
   isRevealed = true;
-
   hintArrow.classList.remove('show');
   bagContainer.classList.add('revealed');
   revealedIds.add(currentItemId);
-
   manul1.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
   manul1.className = 'manul happy';
-
   playSound('cash');
-
   setTimeout(() => {
     wordDisplay.classList.add('show');
     speakWord(roundItems[roundIndex].word);
     launchConfetti();
     updateShoppingList();
-
-    setTimeout(() => {
-      btnNext.classList.add('show');
-    }, 1000);
+    setTimeout(() => { btnNext.classList.add('show'); }, 1000);
   }, 600);
 });
 
@@ -177,27 +159,20 @@ btnNext.addEventListener('click', () => {
 function startQuiz() {
   const extraItem = remainingPool[Math.floor(Math.random() * remainingPool.length)];
   correctQuizId = extraItem.id;
-
   quizItems = [...roundItems, extraItem];
   quizItems = shuffle(quizItems);
-
   selectedQuizId = null;
   quizChecked = false;
-
   renderQuizGrid();
-
   manul2.innerHTML = '<img src="assets/images/manul_dumaet.png" alt="Манул задумчивый">';
   manul2.className = 'quiz-manul thinking';
-
   screen1.classList.remove('active');
   screen1.classList.add('hidden');
   screen2.classList.remove('hidden');
   screen2.classList.add('active');
-
   btnCheck.disabled = true;
   btnCheck.style.visibility = 'visible';
   btnCheck.style.opacity = '1';
-  
   btnNextRound.classList.remove('visible');
 }
 
@@ -220,7 +195,6 @@ function renderQuizGrid() {
 
 function selectQuizCard(id, cardEl) {
   if (quizChecked) return;
-
   selectedQuizId = id;
   document.querySelectorAll('.quiz-card').forEach(c => c.classList.remove('selected'));
   cardEl.classList.add('selected');
@@ -230,25 +204,15 @@ function selectQuizCard(id, cardEl) {
 btnCheck.addEventListener('click', () => {
   if (selectedQuizId === null || quizChecked) return;
   quizChecked = true;
-
   const cards = document.querySelectorAll('.quiz-card');
   let isCorrect = false;
-
   cards.forEach((card) => {
     const id = parseInt(card.dataset.id);
     card.classList.remove('selected');
-
-    if (id === correctQuizId) {
-      card.classList.add('correct');
-    }
-    if (id === selectedQuizId && id !== correctQuizId) {
-      card.classList.add('wrong');
-    }
-    if (id === selectedQuizId && id === correctQuizId) {
-      isCorrect = true;
-    }
+    if (id === correctQuizId) card.classList.add('correct');
+    if (id === selectedQuizId && id !== correctQuizId) card.classList.add('wrong');
+    if (id === selectedQuizId && id === correctQuizId) isCorrect = true;
   });
-
   if (isCorrect) {
     manul2.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
     manul2.className = 'quiz-manul happy';
@@ -257,18 +221,13 @@ btnCheck.addEventListener('click', () => {
   } else {
     playSound('wrong');
   }
-
   btnCheck.style.visibility = 'hidden';
   btnCheck.style.opacity = '0';
-  
-  setTimeout(() => {
-    btnNextRound.classList.add('visible');
-  }, 800);
+  setTimeout(() => { btnNextRound.classList.add('visible'); }, 800);
 });
 
 btnNextRound.addEventListener('click', () => {
   completedQuizzes++;
-  
   if (completedQuizzes >= maxQuizzes) {
     setTimeout(() => showFinalScreen(), 300);
   } else {
@@ -283,13 +242,10 @@ function showFinalScreen() {
   screen2.classList.add('hidden');
   screen3.classList.remove('hidden');
   screen3.classList.add('active');
-
   manul3.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
-
   for (let i = 0; i < 3; i++) {
     setTimeout(() => launchConfetti(), i * 500);
   }
-
   playSound('success');
 }
 
@@ -308,18 +264,14 @@ function speakWord(text) {
   }
 }
 
-function playSound(type) {
-  console.log(`Playing sound: ${type}`);
-}
+function playSound(type) { console.log(`Playing sound: ${type}`); }
 
 function launchConfetti() {
   const ctx = confettiCanvas.getContext('2d');
   confettiCanvas.width = window.innerWidth;
   confettiCanvas.height = window.innerHeight;
-
   const particles = [];
   const colors = ['#ff4500', '#ffd700', '#32cd32', '#1e90ff', '#ff69b4'];
-
   for (let i = 0; i < 50; i++) {
     particles.push({
       x: confettiCanvas.width / 2,
@@ -331,7 +283,6 @@ function launchConfetti() {
       life: 1
     });
   }
-
   function animate() {
     ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
     let alive = false;

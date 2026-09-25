@@ -23,7 +23,7 @@
         Помоги мне угадать, что я купил!<br>
         Смотри на тень в пакете и нажимай на кассу!
       </div>
-      <button class="btn-start" id="btnStart">Начать игру! 🎮</button>
+      <button class="btn-start" id="btnStart">Начать игру! </button>
     </div>
   </div>
 
@@ -61,22 +61,22 @@
   <!-- ЭКРАН 2: ВИКТОРИНА -->
   <div class="screen hidden" id="screen2">
     <div class="quiz-screen">
-      <div class="quiz-header">
+      <div class="quiz-left">
         <div class="quiz-title">
           <span class="emoji-big">🤔</span>
           Какого предмета <b>НЕ было</b> в списке?
         </div>
-        <div class="quiz-manul-row">
+        <div class="quiz-manul-container">
           <div class="quiz-manul thinking" id="manul2">
             <img src="assets/images/manul_dumaet.png" alt="Манул задумчивый">
           </div>
-          <button class="btn-check" id="btnCheck" disabled>Проверить ✓</button>
         </div>
+        <button class="btn-check" id="btnCheck" disabled>Проверить ✓</button>
       </div>
-      <div class="quiz-grid" id="quizGrid"></div>
-      <div class="quiz-actions">
-        <button class="btn-next-round" id="btnNextRound">Новый раунд </button>
-      </div>
+      <div class="quiz-right" id="quizGrid"></div>
+    </div>
+    <div class="quiz-actions">
+      <button class="btn-next-round" id="btnNextRound">Новый раунд 🔄</button>
     </div>
   </div>
 

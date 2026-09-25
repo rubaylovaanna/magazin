@@ -1,13 +1,13 @@
 const allItems = [
-  { id: 0, emoji: 'luk.png', word: 'Лук', lPos: 0, audio: 'luk.mp3' },
-  { id: 1, emoji: 'svekla.png', word: 'Свёкла', lPos: 4, audio: 'svekla.mp3' },
-  { id: 2, emoji: 'lozhka.png', word: 'Ложка', lPos: 0, audio: 'lozhka.mp3' },
-  { id: 3, emoji: 'milo.png', word: 'Мыло', lPos: 2, audio: 'mylo.mp3' },
-  { id: 4, emoji: 'salat.png', word: 'Салат', lPos: 2, audio: 'salat.mp3' },
-  { id: 5, emoji: 'moloko.png', word: 'Молоко', lPos: 0, audio: 'moloko.mp3' },
-  { id: 6, emoji: 'laim.png', word: 'Лайм', lPos: 0, audio: 'laim.mp3' },
-  { id: 7, emoji: 'halva.png', word: 'Халва', lPos: 2, audio: 'halva.mp3' },
-  { id: 8, emoji: 'sladosty.png', word: 'Сладости', lPos: 1, audio: 'sladosty.mp3' }
+  { id: 0, emoji: 'luk.png', word: 'Лук', lPos: 0 },
+  { id: 1, emoji: 'svekla.png', word: 'Свёкла', lPos: 4 },
+  { id: 2, emoji: 'lozhka.png', word: 'Ложка', lPos: 0 },
+  { id: 3, emoji: 'milo.png', word: 'Мыло', lPos: 2 },
+  { id: 4, emoji: 'salat.png', word: 'Салат', lPos: 2 },
+  { id: 5, emoji: 'moloko.png', word: 'Молоко', lPos: 0 },
+  { id: 6, emoji: 'laim.png', word: 'Лайм', lPos: 0 },
+  { id: 7, emoji: 'halva.png', word: 'Халва', lPos: 2 },
+  { id: 8, emoji: 'sladosty.png', word: 'Сладости', lPos: 1 }
 ];
 
 function shuffle(array) {
@@ -56,7 +56,7 @@ const btnCheck = document.getElementById('btnCheck');
 const btnRestartQuiz = document.getElementById('btnRestartQuiz');
 const btnRestart = document.getElementById('btnRestart');
 
-// Аудио элементы
+// Аудио элементы (только SFX, без озвучки слов)
 const audioKassa = document.getElementById('audioKassa');
 const audioShurshanie = document.getElementById('audioShurshanie');
 const audioCorrect = document.getElementById('audioCorrect');
@@ -67,27 +67,6 @@ function playAudio(audioElement) {
   if (audioElement) {
     audioElement.currentTime = 0;
     audioElement.play().catch(err => console.log('Audio play error:', err));
-  }
-}
-
-// Озвучка слова через аудиофайл
-function playWordAudio(audioFileName) {
-  const audio = new Audio(`assets/audio/voice/${audioFileName}`);
-  audio.play().catch(err => {
-    console.log('Voice audio error:', err);
-    // Fallback на Web Speech API
-    speakWordFallback(audioFileName.replace('.mp3', ''));
-  });
-}
-
-// Fallback озвучка через Web Speech API
-function speakWordFallback(text) {
-  if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ru-RU';
-    utterance.rate = 0.8;
-    utterance.pitch = 1.2;
-    speechSynthesis.speak(utterance);
   }
 }
 
@@ -178,8 +157,7 @@ cashRegister.addEventListener('click', () => {
 
   setTimeout(() => {
     wordDisplay.classList.add('show');
-    // Озвучка продукта
-    playWordAudio(roundItems[roundIndex].audio);
+    // Озвучка продукта УБРАНА
     launchConfetti();
     updateShoppingList();
     setTimeout(() => { btnNext.classList.add('show'); }, 1000);
@@ -265,7 +243,6 @@ btnCheck.addEventListener('click', () => {
     playAudio(audioWrong);
   }
 
-  // Скрываем "Проверить", показываем "Играть заново" на том же месте
   btnCheck.style.visibility = 'hidden';
   btnCheck.style.opacity = '0';
   

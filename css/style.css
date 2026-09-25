@@ -21,8 +21,7 @@ body {
 
 .background-shelves {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   background-image: url('../assets/images/magazin.png');
@@ -152,6 +151,7 @@ body {
   align-items: center;
   gap: 2vmin;
   min-height: 0;
+  height: 100%;
 }
 
 .left-section {
@@ -164,10 +164,11 @@ body {
   gap: 2vmin;
 }
 
-/*  МАКСИМАЛЬНО КРУПНЫЙ МАНУЛ */
+/* 🔥 МАНУЛ УВЕЛИЧЕН НА 200% (было 28vmin → 56vmin, но ограничим высотой экрана) */
 .manul {
-  width: 28vmin;
-  height: 28vmin;
+  width: 35vmin;
+  height: 35vmin;
+  max-height: 70vh;
   transition: all 0.5s ease;
   flex-shrink: 0;
 }
@@ -196,11 +197,12 @@ body {
   100% { transform: scale(1) rotate(0deg); }
 }
 
-/* 🔥 МАКСИМАЛЬНО КРУПНЫЙ ПАКЕТ */
+/*  ПАКЕТ УВЕЛИЧЕН НА 170% (было 32x38 → 54x65, ограничим) */
 .bag-container {
   position: relative;
-  width: 32vmin;
-  height: 38vmin;
+  width: 38vmin;
+  height: 45vmin;
+  max-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -209,8 +211,9 @@ body {
 
 .bag {
   position: absolute;
-  width: 32vmin;
-  height: 38vmin;
+  width: 38vmin;
+  height: 45vmin;
+  max-height: 80vh;
   opacity: 0.7;
   filter: drop-shadow(0 15px 20px rgba(0,0,0,0.2));
   z-index: 2;
@@ -222,11 +225,12 @@ body {
   object-fit: contain;
 }
 
-/* 🔥 СИЛУЭТ — крупнее */
+/* 🔥 СИЛУЭТ УВЕЛИЧЕН НА 170% */
 .item-silhouette {
   position: absolute;
-  width: 20vmin;
-  height: 20vmin;
+  width: 24vmin;
+  height: 24vmin;
+  max-height: 50vh;
   filter: brightness(0) opacity(0.7);
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform: scale(0.8);
@@ -239,11 +243,12 @@ body {
   object-fit: contain;
 }
 
-/* 🔥 ЦВЕТНОЕ ИЗОБРАЖЕНИЕ — крупнее */
+/* 🔥 ЦВЕТНОЕ ИЗОБРАЖЕНИЕ УВЕЛИЧЕНО НА 170% */
 .item-color {
   position: absolute;
-  width: 24vmin;
-  height: 24vmin;
+  width: 28vmin;
+  height: 28vmin;
+  max-height: 55vh;
   opacity: 0;
   transform: scale(0.5) translateY(20px);
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -267,10 +272,11 @@ body {
   100% { transform: scale(1); }
 }
 
-/* 🔥 МАКСИМАЛЬНО КРУПНАЯ КАССА */
+/* 🔥 КАССА УВЕЛИЧЕНА НА 170% (было 20 → 34vmin) */
 .cash-register {
-  width: 20vmin;
-  height: 20vmin;
+  width: 28vmin;
+  height: 28vmin;
+  max-height: 50vh;
   cursor: pointer;
   transition: transform 0.2s;
   animation: pulseCash 2s infinite;
@@ -308,7 +314,6 @@ body {
   to { transform: translateX(-50%) translateY(-2vmin); }
 }
 
-/* 🔥 ПРАВАЯ ПАНЕЛЬ — компактная, но с крупными элементами списка */
 .right-section {
   width: 32%;
   max-width: 340px;
@@ -381,7 +386,6 @@ body {
 .btn-next.show { display: block; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .btn-next:active { transform: translateY(5px); box-shadow: 0 0 0 #388E3C; }
 
-/* 🔥 СПИСОК ПОКУПОК — крупные элементы */
 .shopping-list {
   flex: 1;
   display: flex;
@@ -413,7 +417,6 @@ body {
   color: #6c757d;
 }
 
-/* 🔥 КРУПНЫЕ ЭМОДЗИ В СПИСКЕ */
 .item-emoji { 
   width: 5vmin;
   height: 5vmin;
@@ -428,13 +431,13 @@ body {
 
 .item-text { flex: 1; font-weight: 600; }
 
-/* ===== ЭКРАН 2: ВИКТОРИНА ===== */
+/* ===== ЭКРАН 2: ВИКТОРИНА — ИСПРАВЛЕНО ===== */
 .quiz-screen {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3vmin;
-  padding: 3vmin;
-  height: 100%;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2vmin;
+  padding: 2vmin;
+  height: calc(100% - 4vmin);
   align-items: stretch;
 }
 
@@ -442,41 +445,42 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 3vmin;
-  padding: 2vmin;
+  gap: 2vmin;
+  padding: 1vmin;
+  min-height: 0;
 }
 
 .quiz-title {
-  font-size: 5vmin;
+  font-size: 4vmin;
   font-weight: bold;
   color: #333;
   text-align: center;
   background: white;
-  padding: 3vmin 4vmin;
-  border-radius: 5vmin;
+  padding: 2vmin 3vmin;
+  border-radius: 4vmin;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   width: 100%;
   position: relative;
+  flex-shrink: 0;
 }
 
 .quiz-title::after {
   content: '';
   position: absolute;
-  bottom: -20px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 20px solid white;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid white;
 }
 
 .quiz-title .emoji-big {
-  font-size: 10vmin;
+  font-size: 7vmin;
   display: block;
-  margin-bottom: 2vmin;
+  margin-bottom: 1vmin;
 }
 
 .quiz-manul-container {
@@ -490,9 +494,9 @@ body {
 
 .quiz-manul {
   width: 100%;
-  max-width: 55vmin;
-  height: auto;
-  max-height: 55vmin;
+  height: 100%;
+  max-width: 40vmin;
+  max-height: 40vmin;
   transition: all 0.5s ease;
 }
 
@@ -507,56 +511,60 @@ body {
 .quiz-manul.happy { animation: happy 0.8s ease; }
 
 .btn-check {
-  font-size: 5vmin;
-  padding: 3vmin 6vmin;
+  font-size: 4vmin;
+  padding: 2vmin 4vmin;
   color: white;
   border: none;
-  border-radius: 5vmin;
+  border-radius: 4vmin;
   cursor: pointer;
-  box-shadow: 0 8px 0 #1565C0;
+  box-shadow: 0 6px 0 #1565C0;
   transition: all 0.1s;
   font-weight: bold;
   background: #2196F3;
-  width: 80%;
-  max-width: 400px;
+  width: 90%;
+  max-width: 350px;
+  flex-shrink: 0;
 }
 
 .btn-check:active {
-  transform: translateY(8px);
+  transform: translateY(6px);
   box-shadow: 0 0 0 #1565C0;
 }
 
 .btn-check:disabled {
   background: #bdbdbd;
-  box-shadow: 0 8px 0 #757575;
+  box-shadow: 0 6px 0 #757575;
   cursor: not-allowed;
   opacity: 0.5;
 }
 
+/* 🔥 ПРАВАЯ ЧАСТЬ: 6 карточек помещаются */
 .quiz-right {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 2vmin;
+  gap: 1.5vmin;
   height: 100%;
+  min-height: 0;
 }
 
 .quiz-card {
   background: white;
-  border-radius: 3vmin;
-  padding: 2vmin;
+  border-radius: 2vmin;
+  padding: 1.5vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5vmin;
+  gap: 1vmin;
   cursor: pointer;
-  border: 4px solid #e0e0e0;
+  border: 3px solid #e0e0e0;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   width: 100%;
   height: 100%;
   min-height: 0;
+  overflow: hidden;
 }
 
 .quiz-card:active { transform: scale(0.95); }
@@ -564,11 +572,12 @@ body {
 .quiz-card .card-emoji {
   flex: 1;
   width: 100%;
-  max-height: 70%;
+  max-height: 75%;
   display: flex;
   align-items: center;
   justify-content: center;
   filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+  min-height: 0;
 }
 
 .quiz-card .card-emoji img {
@@ -579,17 +588,18 @@ body {
 }
 
 .quiz-card .card-name {
-  font-size: 4vmin;
+  font-size: 3.2vmin;
   font-weight: bold;
   color: #333;
   text-align: center;
   flex-shrink: 0;
+  line-height: 1.2;
 }
 
 .quiz-card.selected {
   border-color: #4a90e2;
   background: #e8f4ff;
-  transform: scale(1.05);
+  transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
 }
 
@@ -621,7 +631,7 @@ body {
 .quiz-actions {
   display: flex;
   justify-content: center;
-  margin-top: 2vmin;
+  padding: 1vmin;
 }
 
 .btn-next-round {
@@ -728,12 +738,12 @@ body {
 
 /* ===== АДАПТИВ: ПЛАНШЕТЫ ===== */
 @media (max-width: 1024px) {
-  .manul { width: 24vmin; height: 24vmin; }
-  .bag-container { width: 28vmin; height: 34vmin; }
-  .bag { width: 28vmin; height: 34vmin; }
-  .item-silhouette { width: 18vmin; height: 18vmin; }
-  .item-color { width: 22vmin; height: 22vmin; }
-  .cash-register { width: 18vmin; height: 18vmin; }
+  .manul { width: 30vmin; height: 30vmin; }
+  .bag-container { width: 34vmin; height: 40vmin; }
+  .bag { width: 34vmin; height: 40vmin; }
+  .item-silhouette { width: 20vmin; height: 20vmin; }
+  .item-color { width: 24vmin; height: 24vmin; }
+  .cash-register { width: 24vmin; height: 24vmin; }
   .item-emoji { width: 4.5vmin; height: 4.5vmin; }
 }
 
@@ -755,12 +765,11 @@ body {
     padding: 0 1vmin;
   }
   
-  /* 🔥 МОБИЛЬНЫЕ: всё крупнее */
-  .manul { width: 22vmin; height: 22vmin; }
-  .bag-container { width: 26vmin; height: 30vmin; }
-  .bag { width: 26vmin; height: 30vmin; }
-  .item-silhouette { width: 16vmin; height: 16vmin; }
-  .item-color { width: 19vmin; height: 19vmin; }
+  .manul { width: 20vmin; height: 20vmin; }
+  .bag-container { width: 24vmin; height: 28vmin; }
+  .bag { width: 24vmin; height: 28vmin; }
+  .item-silhouette { width: 14vmin; height: 14vmin; }
+  .item-color { width: 17vmin; height: 17vmin; }
   .cash-register { width: 16vmin; height: 16vmin; }
 
   .right-section {
@@ -784,43 +793,57 @@ body {
   .quiz-screen { 
     grid-template-columns: 1fr; 
     grid-template-rows: auto 1fr;
-    padding: 2vmin; 
-    gap: 2vmin; 
+    padding: 1.5vmin; 
+    gap: 1.5vmin; 
   }
 
   .quiz-left {
-    flex-direction: column;
-    gap: 2vmin;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5vmin;
+    justify-content: center;
   }
 
   .quiz-title {
-    font-size: 4vmin;
-    padding: 2vmin;
+    font-size: 3.5vmin;
+    padding: 1.5vmin 2vmin;
+    width: 100%;
   }
 
   .quiz-title .emoji-big {
-    font-size: 6vmin;
+    font-size: 5vmin;
+  }
+
+  .quiz-manul-container {
+    flex: 0 0 auto;
+    width: auto;
   }
 
   .quiz-manul {
-    max-width: 35vmin;
-    max-height: 35vmin;
+    max-width: 20vmin;
+    max-height: 20vmin;
   }
 
   .btn-check {
-    font-size: 4vmin;
-    padding: 2vmin 3vmin;
-    width: 100%;
+    font-size: 3.5vmin;
+    padding: 1.5vmin 3vmin;
+    width: auto;
+    flex: 0 0 auto;
   }
 
   .quiz-right {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 1.5vmin;
+    gap: 1vmin;
+  }
+
+  .quiz-card {
+    padding: 1vmin;
+    gap: 0.5vmin;
   }
 
   .quiz-card .card-name {
-    font-size: 3vmin;
+    font-size: 2.5vmin;
   }
 
   .popup-manul { width: 35vmin; height: 35vmin; }
@@ -836,11 +859,11 @@ body {
 
 @media (max-width: 480px) {
   .left-section { gap: 1vmin; }
-  .manul { width: 18vmin; height: 18vmin; }
-  .bag-container { width: 22vmin; height: 26vmin; }
-  .bag { width: 22vmin; height: 26vmin; }
-  .item-silhouette { width: 14vmin; height: 14vmin; }
-  .item-color { width: 16vmin; height: 16vmin; }
+  .manul { width: 16vmin; height: 16vmin; }
+  .bag-container { width: 20vmin; height: 24vmin; }
+  .bag { width: 20vmin; height: 24vmin; }
+  .item-silhouette { width: 12vmin; height: 12vmin; }
+  .item-color { width: 14vmin; height: 14vmin; }
   .cash-register { width: 14vmin; height: 14vmin; }
 
   .quiz-right {
@@ -849,8 +872,8 @@ body {
   }
   .quiz-card .card-name { font-size: 2.8vmin; }
   
-  .quiz-manul { max-width: 28vmin; max-height: 28vmin; }
-  .btn-check { font-size: 3.5vmin; padding: 1.5vmin 2vmin; }
+  .quiz-manul { max-width: 18vmin; max-height: 18vmin; }
+  .btn-check { font-size: 3vmin; padding: 1.2vmin 2vmin; }
   
   .item-emoji { width: 4vmin; height: 4vmin; }
   .list-item { font-size: 2.8vmin; }

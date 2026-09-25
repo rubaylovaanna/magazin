@@ -1,13 +1,13 @@
 const allItems = [
-  { id: 0, emoji: 'luk.png', word: 'Лук', lPos: 0 },
-  { id: 1, emoji: 'svekla.png', word: 'Свёкла', lPos: 4 },
-  { id: 2, emoji: 'lozhka.png', word: 'Ложка', lPos: 0 },
-  { id: 3, emoji: 'milo.png', word: 'Мыло', lPos: 2 },
-  { id: 4, emoji: 'salat.png', word: 'Салат', lPos: 2 },
-  { id: 5, emoji: 'moloko.png', word: 'Молоко', lPos: 0 },
-  { id: 6, emoji: 'laim.png', word: 'Лайм', lPos: 0 },
-  { id: 7, emoji: 'halva.png', word: 'Халва', lPos: 2 },
-  { id: 8, emoji: 'sladosty.png', word: 'Сладости', lPos: 1 }
+  { id: 0, emoji: 'luk.png', word: 'Лук', lPos: 0, audio: 'luk.mp3' },
+  { id: 1, emoji: 'svekla.png', word: 'Свёкла', lPos: 4, audio: 'svekla.mp3' },
+  { id: 2, emoji: 'lozhka.png', word: 'Ложка', lPos: 0, audio: 'lozhka.mp3' },
+  { id: 3, emoji: 'milo.png', word: 'Мыло', lPos: 2, audio: 'mylo.mp3' },
+  { id: 4, emoji: 'salat.png', word: 'Салат', lPos: 2, audio: 'salat.mp3' },
+  { id: 5, emoji: 'moloko.png', word: 'Молоко', lPos: 0, audio: 'moloko.mp3' },
+  { id: 6, emoji: 'laim.png', word: 'Лайм', lPos: 0, audio: 'laim.mp3' },
+  { id: 7, emoji: 'halva.png', word: 'Халва', lPos: 2, audio: 'halva.mp3' },
+  { id: 8, emoji: 'sladosty.png', word: 'Сладости', lPos: 1, audio: 'sladosty.mp3' }
 ];
 
 function shuffle(array) {
@@ -53,8 +53,43 @@ const shoppingList = document.getElementById('shoppingList');
 const confettiCanvas = document.getElementById('confettiCanvas');
 const quizGrid = document.getElementById('quizGrid');
 const btnCheck = document.getElementById('btnCheck');
-const btnNextRound = document.getElementById('btnNextRound');
+const btnRestartQuiz = document.getElementById('btnRestartQuiz');
 const btnRestart = document.getElementById('btnRestart');
+
+// Аудио элементы
+const audioKassa = document.getElementById('audioKassa');
+const audioShurshanie = document.getElementById('audioShurshanie');
+const audioCorrect = document.getElementById('audioCorrect');
+const audioWrong = document.getElementById('audioWrong');
+
+// Функция воспроизведения аудио с обработкой ошибок
+function playAudio(audioElement) {
+  if (audioElement) {
+    audioElement.currentTime = 0;
+    audioElement.play().catch(err => console.log('Audio play error:', err));
+  }
+}
+
+// Озвучка слова через аудиофайл
+function playWordAudio(audioFileName) {
+  const audio = new Audio(`assets/audio/voice/${audioFileName}`);
+  audio.play().catch(err => {
+    console.log('Voice audio error:', err);
+    // Fallback на Web Speech API
+    speakWordFallback(audioFileName.replace('.mp3', ''));
+  });
+}
+
+// Fallback озвучка через Web Speech API
+function speakWordFallback(text) {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ru-RU';
+    utterance.rate = 0.8;
+    utterance.pitch = 1.2;
+    speechSynthesis.speak(utterance);
+  }
+}
 
 btnStart.addEventListener('click', () => {
   startPopup.classList.add('hidden');
@@ -137,10 +172,14 @@ cashRegister.addEventListener('click', () => {
   revealedIds.add(currentItemId);
   manul1.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
   manul1.className = 'manul happy';
-  playSound('cash');
+  
+  // Звук кассы
+  playAudio(audioKassa);
+
   setTimeout(() => {
     wordDisplay.classList.add('show');
-    speakWord(roundItems[roundIndex].word);
+    // Озвучка продукта
+    playWordAudio(roundItems[roundIndex].audio);
     launchConfetti();
     updateShoppingList();
     setTimeout(() => { btnNext.classList.add('show'); }, 1000);
@@ -148,6 +187,9 @@ cashRegister.addEventListener('click', () => {
 });
 
 btnNext.addEventListener('click', () => {
+  // Шуршание пакета
+  playAudio(audioShurshanie);
+  
   roundIndex++;
   if (roundIndex >= roundItems.length) {
     setTimeout(() => startQuiz(), 500);
@@ -173,7 +215,7 @@ function startQuiz() {
   btnCheck.disabled = true;
   btnCheck.style.visibility = 'visible';
   btnCheck.style.opacity = '1';
-  btnNextRound.classList.remove('visible');
+  btnRestartQuiz.classList.remove('visible');
 }
 
 function renderQuizGrid() {
@@ -213,20 +255,26 @@ btnCheck.addEventListener('click', () => {
     if (id === selectedQuizId && id !== correctQuizId) card.classList.add('wrong');
     if (id === selectedQuizId && id === correctQuizId) isCorrect = true;
   });
+  
   if (isCorrect) {
     manul2.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
     manul2.className = 'quiz-manul happy';
     launchConfetti();
-    playSound('success');
+    playAudio(audioCorrect);
   } else {
-    playSound('wrong');
+    playAudio(audioWrong);
   }
+
+  // Скрываем "Проверить", показываем "Играть заново" на том же месте
   btnCheck.style.visibility = 'hidden';
   btnCheck.style.opacity = '0';
-  setTimeout(() => { btnNextRound.classList.add('visible'); }, 800);
+  
+  setTimeout(() => {
+    btnRestartQuiz.classList.add('visible');
+  }, 800);
 });
 
-btnNextRound.addEventListener('click', () => {
+btnRestartQuiz.addEventListener('click', () => {
   completedQuizzes++;
   if (completedQuizzes >= maxQuizzes) {
     setTimeout(() => showFinalScreen(), 300);
@@ -243,28 +291,16 @@ function showFinalScreen() {
   screen3.classList.remove('hidden');
   screen3.classList.add('active');
   manul3.innerHTML = '<img src="assets/images/manul_raduetsya.png" alt="Манул радуется">';
+  playAudio(audioCorrect);
   for (let i = 0; i < 3; i++) {
     setTimeout(() => launchConfetti(), i * 500);
   }
-  playSound('success');
 }
 
 btnRestart.addEventListener('click', () => {
   completedQuizzes = 0;
   startNewRound();
 });
-
-function speakWord(text) {
-  if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ru-RU';
-    utterance.rate = 0.8;
-    utterance.pitch = 1.2;
-    speechSynthesis.speak(utterance);
-  }
-}
-
-function playSound(type) { console.log(`Playing sound: ${type}`); }
 
 function launchConfetti() {
   const ctx = confettiCanvas.getContext('2d');

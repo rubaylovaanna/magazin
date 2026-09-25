@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Манул в магазине</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -22,7 +25,7 @@
         Помоги мне угадать, что я купил!<br>
         Смотри на тень в пакете и нажимай на кассу!
       </div>
-      <button class="btn-start" id="btnStart">Начать игру! 🎮</button>
+      <button class="btn-start" id="btnStart">Начать игру!</button>
     </div>
   </div>
 
@@ -46,10 +49,10 @@
       </div>
 
       <div class="right-section">
-        <div class="shopping-list-title"> Список покупок</div>
+        <div class="shopping-list-title">Список покупок</div>
         <div class="ui-section">
           <div class="word-display" id="wordDisplay"></div>
-          <button class="btn-next" id="btnNext">Дальше →</button>
+          <button class="btn-next" id="btnNext">Дальше</button>
         </div>
         <div class="shopping-list" id="shoppingList"></div>
       </div>
@@ -60,7 +63,7 @@
     <div class="quiz-screen">
       <div class="quiz-left">
         <div class="quiz-title">
-          <span class="emoji-big">🤔</span>
+          <span class="emoji-big"></span>
           Какого предмета <b>НЕ было</b> в списке?
         </div>
         <div class="quiz-manul-container">
@@ -68,12 +71,12 @@
             <img src="assets/images/manul_dumaet.png" alt="Манул задумчивый">
           </div>
         </div>
-        <button class="btn-check" id="btnCheck" disabled>Проверить ✓</button>
+        <div class="quiz-buttons">
+          <button class="btn-check" id="btnCheck" disabled>Проверить</button>
+          <button class="btn-restart-quiz" id="btnRestartQuiz">Играть заново</button>
+        </div>
       </div>
       <div class="quiz-right" id="quizGrid"></div>
-    </div>
-    <div class="quiz-actions">
-      <button class="btn-next-round" id="btnNextRound">Новый раунд 🔄</button>
     </div>
   </div>
 
@@ -82,13 +85,18 @@
       <div class="final-manul" id="manul3">
         <img src="assets/images/manul_raduetsya.png" alt="Манул радуется">
       </div>
-      <div class="final-title">Молодец! 🎉</div>
+      <div class="final-title">Молодец!</div>
       <div class="final-text">Ты помог Манулу купить всё!</div>
-      <button class="btn-restart" id="btnRestart">Начать заново 🔄</button>
+      <button class="btn-restart" id="btnRestart">Начать заново</button>
     </div>
   </div>
 
   <canvas class="confetti" id="confettiCanvas"></canvas>
+
+  <audio id="audioKassa" src="assets/audio/sfx/kassa.mp3" preload="auto"></audio>
+  <audio id="audioShurshanie" src="assets/audio/sfx/shurshanie.mp3" preload="auto"></audio>
+  <audio id="audioCorrect" src="assets/audio/sfx/correct.mp3" preload="auto"></audio>
+  <audio id="audioWrong" src="assets/audio/sfx/wrong.mp3" preload="auto"></audio>
 </div>
 
 <script src="js/game.js"></script>
